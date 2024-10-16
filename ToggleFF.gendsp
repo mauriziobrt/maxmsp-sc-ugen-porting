@@ -1,0 +1,199 @@
+{
+	"patcher" : 	{
+		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 8,
+			"minor" : 6,
+			"revision" : 4,
+			"architecture" : "x64",
+			"modernui" : 1
+		}
+,
+		"classnamespace" : "dsp.gen",
+		"rect" : [ 34.0, 87.0, 663.0, 705.0 ],
+		"bglocked" : 0,
+		"openinpresentation" : 0,
+		"default_fontsize" : 12.0,
+		"default_fontface" : 0,
+		"default_fontname" : "Arial",
+		"gridonopen" : 1,
+		"gridsize" : [ 15.0, 15.0 ],
+		"gridsnaponopen" : 1,
+		"objectsnaponopen" : 1,
+		"statusbarvisible" : 2,
+		"toolbarvisible" : 1,
+		"lefttoolbarpinned" : 0,
+		"toptoolbarpinned" : 0,
+		"righttoolbarpinned" : 0,
+		"bottomtoolbarpinned" : 0,
+		"toolbars_unpinned_last_save" : 0,
+		"tallnewobj" : 0,
+		"boxanimatetime" : 200,
+		"enablehscroll" : 1,
+		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
+		"description" : "",
+		"digest" : "",
+		"tags" : "",
+		"style" : "",
+		"subpatcher_template" : "",
+		"assistshowspatchername" : 0,
+		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-31",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 203.0, 190.0, 29.0, 22.0 ],
+					"text" : "% 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-30",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 203.0, 160.0, 29.5, 22.0 ],
+					"text" : "+="
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-29",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 203.0, 133.0, 47.0, 22.0 ],
+					"text" : "clip 0 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-28",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 203.0, 102.0, 48.0, 22.0 ],
+					"text" : "change"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-27",
+					"linecount" : 35,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 92.0, 680.0, 254.0, 476.0 ],
+					"text" : "{\n    int     MyButtonPressed;\n    int     MyToggle = 0;\n    \n    while(1)\n        {\n        if( GetJoystickButton() == 1 )\n            {\n            // pressed\n            \n            // Was it pressed before\n            if( MyButtonPressed == 0 ) \n                {\n                // we are now pressed\n                MyButtonPressed = 1;\n                // change 1 to 0, or 0 to 1\n                MyToggle = 1 - MyToggle;\n                }\n            }\n        else\n            {\n            // nor pressed\n            MyButtonPressed = 0;\n            }\n            \n        if( MyToggle == 1 )\n            writeDebugStreamLine(\"toggle is On\");\n        else\n            writeDebugStreamLine(\"toggle is Off\");\n        \n\n        // Long delay in this demo code only\n        wait1Msec(100);    \n        }\n}"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-25",
+					"linecount" : 6,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 87.0, 598.0, 475.0, 87.0 ],
+					"text" : "I’m not going to write this out in EasyC as the concept is the same no matter what the language you are using. You need to detect the button being pressed, set a flag (that is, a variable that can be either 0 or 1) to indicate that that action has happened and then perhaps set another variable indicating that a different action needs to be performed. I know this has been asked before on the forum, there should be example code somewhere but here is a ROBOTC example."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-17",
+					"linecount" : 6,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 62.0, 475.0, 506.0, 100.0 ],
+					"text" : "allora io ricevo trig \nche diventa curtrig\n\nse il valore precedente era uguale a 0 e il valore attuale è maggiore di 0 allora cambia il livello\n\n\n"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-13",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 208.0, 7.0, 28.0, 22.0 ],
+					"text" : "in 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-6",
+					"linecount" : 27,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 402.0, 74.5, 428.0, 382.0 ],
+					"text" : "void ToggleFF_Ctor(ToggleFF* unit) {\n    SETCALC(ToggleFF_next);\n\n    unit->m_prevtrig = 0.f;\n    unit->mLevel = 0.f;\n\n    ZOUT0(0) = 0.f;\n}\n\n\nvoid ToggleFF_next(ToggleFF* unit, int inNumSamples) {\n    float* out = ZOUT(0);\n    float* trig = ZIN(0);\n    float prevtrig = unit->m_prevtrig;\n    float level = unit->mLevel;\n\n    LOOP1(inNumSamples, \nfloat curtrig = ZXP(trig); \nif (prevtrig <= 0.f && curtrig > 0.f) \n    level = 1.f - level;\n    ZXP(out) = level;\n    prevtrig = curtrig;\n);\n    \nunit->m_prevtrig = prevtrig;\nunit->mLevel = level;\n}\n"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-4",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 208.0, 396.0, 35.0, 22.0 ],
+					"text" : "out 1"
+				}
+
+			}
+ ],
+		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-28", 0 ],
+					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-29", 0 ],
+					"source" : [ "obj-28", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-30", 0 ],
+					"source" : [ "obj-29", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-31", 0 ],
+					"source" : [ "obj-30", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"source" : [ "obj-31", 0 ]
+				}
+
+			}
+ ]
+	}
+
+}

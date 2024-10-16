@@ -1,0 +1,617 @@
+{
+	"patcher" : 	{
+		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 8,
+			"minor" : 6,
+			"revision" : 4,
+			"architecture" : "x64",
+			"modernui" : 1
+		}
+,
+		"classnamespace" : "dsp.gen",
+		"rect" : [ 0.0, -26.0, 600.0, 476.0 ],
+		"bglocked" : 0,
+		"openinpresentation" : 0,
+		"default_fontsize" : 12.0,
+		"default_fontface" : 0,
+		"default_fontname" : "Arial",
+		"gridonopen" : 1,
+		"gridsize" : [ 15.0, 15.0 ],
+		"gridsnaponopen" : 1,
+		"objectsnaponopen" : 1,
+		"statusbarvisible" : 2,
+		"toolbarvisible" : 1,
+		"lefttoolbarpinned" : 0,
+		"toptoolbarpinned" : 0,
+		"righttoolbarpinned" : 0,
+		"bottomtoolbarpinned" : 0,
+		"toolbars_unpinned_last_save" : 0,
+		"tallnewobj" : 0,
+		"boxanimatetime" : 200,
+		"enablehscroll" : 1,
+		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
+		"description" : "",
+		"digest" : "",
+		"tags" : "",
+		"style" : "",
+		"subpatcher_template" : "",
+		"assistshowspatchername" : 0,
+		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-31",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 378.888906955718994, 102.222227096557617, 143.0, 22.0 ],
+					"text" : "Param num_harmonics 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-27",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 488.888912200927734, 456.666688442230225, 61.0, 22.0 ],
+					"text" : "fixdenorm"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-26",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 488.888912200927734, 371.111128807067871, 29.5, 22.0 ],
+					"text" : "*"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bubble" : 1,
+					"id" : "obj-25",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 398.888907909393311, 414.444464206695557, 58.0, 24.0 ],
+					"text" : "M/P"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-24",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 363.333350658416748, 415.555575370788574, 29.5, 22.0 ],
+					"text" : "/"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-23",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 487.777801036834717, 507.777801990509033, 29.5, 22.0 ],
+					"text" : "*"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-22",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 487.777801036834717, 216.666676998138428, 29.5, 22.0 ],
+					"text" : "*"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-21",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 485.555578708648682, 155.555562973022461, 45.0, 22.0 ],
+					"text" : "phasor"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-20",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 487.777801036834717, 608.888917922973633, 35.0, 22.0 ],
+					"text" : "out 3"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-19",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patcher" : 					{
+						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 8,
+							"minor" : 6,
+							"revision" : 4,
+							"architecture" : "x64",
+							"modernui" : 1
+						}
+,
+						"classnamespace" : "dsp.gen",
+						"rect" : [ 760.0, 62.0, 646.0, 804.0 ],
+						"bglocked" : 0,
+						"openinpresentation" : 0,
+						"default_fontsize" : 12.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"gridonopen" : 1,
+						"gridsize" : [ 15.0, 15.0 ],
+						"gridsnaponopen" : 1,
+						"objectsnaponopen" : 1,
+						"statusbarvisible" : 2,
+						"toolbarvisible" : 1,
+						"lefttoolbarpinned" : 0,
+						"toptoolbarpinned" : 0,
+						"righttoolbarpinned" : 0,
+						"bottomtoolbarpinned" : 0,
+						"toolbars_unpinned_last_save" : 0,
+						"tallnewobj" : 0,
+						"boxanimatetime" : 200,
+						"enablehscroll" : 1,
+						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
+						"description" : "",
+						"digest" : "",
+						"tags" : "",
+						"style" : "",
+						"subpatcher_template" : "",
+						"assistshowspatchername" : 0,
+						"boxes" : [ 							{
+								"box" : 								{
+									"code" : "x = in1;\r\nM = in2;\r\nout1 = sin(pi*x)/(M*sin(pi*x/M));",
+									"fontface" : 0,
+									"fontname" : "<Monospaced>",
+									"fontsize" : 12.0,
+									"id" : "obj-15",
+									"maxclass" : "codebox",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 50.0, 94.0, 345.0, 241.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"bubble" : 1,
+									"id" : "obj-13",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 427.0, 14.0, 43.0, 24.0 ],
+									"text" : "M"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"bubble" : 1,
+									"id" : "obj-12",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 85.0, 14.0, 43.0, 24.0 ],
+									"text" : "x"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-10",
+									"maxclass" : "newobj",
+									"numinlets" : 0,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 372.0, 14.0, 28.0, 22.0 ],
+									"text" : "in 2"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-1",
+									"maxclass" : "newobj",
+									"numinlets" : 0,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 50.0, 14.0, 28.0, 22.0 ],
+									"text" : "in 1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-4",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 50.0, 371.0, 35.0, 22.0 ],
+									"text" : "out 1"
+								}
+
+							}
+ ],
+						"lines" : [ 							{
+								"patchline" : 								{
+									"destination" : [ "obj-15", 0 ],
+									"source" : [ "obj-1", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-15", 1 ],
+									"source" : [ "obj-10", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-4", 0 ],
+									"source" : [ "obj-15", 0 ]
+								}
+
+							}
+ ]
+					}
+,
+					"patching_rect" : [ 488.888912200927734, 412.222241878509521, 63.0, 22.0 ],
+					"text" : "gen sincM"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-18",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 218.888899326324463, 445.555576801300049, 35.0, 22.0 ],
+					"text" : "out 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bubble" : 1,
+					"id" : "obj-17",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 261.111123561859131, 347.777794361114502, 155.0, 24.0 ],
+					"text" : "number of harmonics M"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-15",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 218.888899326324463, 347.777794361114502, 26.0, 22.0 ],
+					"text" : "+ 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-14",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 218.888899326324463, 310.000014781951904, 23.0, 22.0 ],
+					"text" : "* 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-13",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 218.888899326324463, 278.888902187347412, 32.0, 22.0 ],
+					"text" : "floor"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-12",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 218.888899326324463, 246.666678428649902, 22.0, 22.0 ],
+					"text" : "/ 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bubble" : 1,
+					"id" : "obj-11",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 207.777787685394287, 186.666675567626953, 148.0, 37.0 ],
+					"text" : "signal period in samples P"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-10",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 95.555560111999512, 194.444453716278076, 70.0, 22.0 ],
+					"text" : "mstosamps"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bubble" : 1,
+					"id" : "obj-9",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 207.777787685394287, 154.444451808929443, 150.0, 24.0 ],
+					"text" : "signal period Tf in ms"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-8",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 95.555560111999512, 154.444451808929443, 45.0, 22.0 ],
+					"text" : "!/ 1000"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-28",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 83.333337306976318, 58.888891696929932, 28.0, 22.0 ],
+					"text" : "in 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-29",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 95.555560111999512, 445.555576801300049, 35.0, 22.0 ],
+					"text" : "out 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-6",
+					"linecount" : 147,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 732.116784393787384, 5.109489023685455, 580.0, 1977.0 ],
+					"text" : "void Blip_Ctor(Blip* unit) {\n    SETCALC(Blip_next);\n    unit->m_freqin = ZIN0(0);\n    unit->m_numharm = (int32)ZIN0(1);\n\n    unit->m_cpstoinc = ft->mSineSize * SAMPLEDUR * 65536. * 0.5;\n    int32 N = unit->m_numharm;\n    int32 maxN = (int32)((SAMPLERATE * 0.5) / unit->m_freqin);\n    if (N > maxN)\n        N = maxN;\n    if (N < 1)\n        N = 1;\n    unit->m_N = N;\n    unit->m_scale = 0.5 / N;\n    unit->m_phase = 0;\n\n    Blip_next(unit, 1);\n    unit->m_N = N;\n    unit->m_scale = 0.5 / N;\n    unit->m_phase = 0;\n}\n\nvoid Blip_next(Blip* unit, int inNumSamples) {\n    float* out = ZOUT(0);\n    float freqin = ZIN0(0);\n    int numharm = (int32)ZIN0(1);\n\n    int32 phase = unit->m_phase;\n\n    float* numtbl = ft->mSine;\n    float* dentbl = ft->mCosecant;\n\n    int32 freq, N, prevN;\n    float scale, prevscale;\n    bool crossfade;\n\n// boh qua mi pare sia solo un, se cambia valore allora aggiornalo e fai crossfade?\n    if (numharm != unit->m_numharm || freqin != unit->m_freqin) {\n        N = numharm;\n        int32 maxN = (int32)((SAMPLERATE * 0.5) / freqin);\n        if (N > maxN) {\n            float maxfreqin;\n            N = maxN;\n            maxfreqin = sc_max(unit->m_freqin, freqin);\n            freq = (int32)(unit->m_cpstoinc * maxfreqin);\n        } else {\n            if (N < 1) {\n                N = 1;\n            }\n            freq = (int32)(unit->m_cpstoinc * freqin);\n        }\n        crossfade = N != unit->m_N;\n        prevN = unit->m_N;\n        prevscale = unit->m_scale;\n        unit->m_N = N;\n        unit->m_scale = scale = 0.5 / N;\n    } else {\n        N = unit->m_N;\n        freq = (int32)(unit->m_cpstoinc * freqin);\n        scale = unit->m_scale;\n        crossfade = false;\n    }\n    int32 N2 = 2 * N + 1;\n\n    if (crossfade) {\n        int32 prevN2 = 2 * prevN + 1;\n        float xfade_slope = unit->mRate->mSlopeFactor;\n        float xfade = 0.f;\n        LOOP1(\n            inNumSamples, float* tbl = (float*)((char*)dentbl + ((phase >> xlobits) & xlomask13)); float t0 = tbl[0];\n            float t1 = tbl[1]; if (t0 == kBadValue || t1 == kBadValue) {\n                tbl = (float*)((char*)numtbl + ((phase >> xlobits) & xlomask13));\n                t0 = tbl[0];\n                t1 = tbl[1];\n                float pfrac = PhaseFrac(phase);\n                float denom = t0 + (t1 - t0) * pfrac;\n                if (std::abs(denom) < 0.0005f) {\n                    ZXP(out) = 1.f;\n                } else {\n                    int32 rphase = phase * prevN2;\n                    pfrac = PhaseFrac(rphase);\n                    tbl = (float*)((char*)numtbl + ((rphase >> xlobits) & xlomask13));\n                    float numer = lininterp(pfrac, tbl[0], tbl[1]);\n                    float n1 = (numer / denom - 1.f) * prevscale;\n\n                    rphase = phase * N2;\n                    pfrac = PhaseFrac(rphase);\n                    tbl = (float*)((char*)numtbl + ((rphase >> xlobits) & xlomask13));\n                    numer = lininterp(pfrac, tbl[0], tbl[1]);\n                    float n2 = (numer / denom - 1.f) * scale;\n\n                    ZXP(out) = lininterp(xfade, n1, n2);\n                }\n            } else {\n                float pfrac = PhaseFrac(phase);\n                float denom = t0 + (t1 - t0) * pfrac;\n\n                int32 rphase = phase * prevN2;\n                pfrac = PhaseFrac(rphase);\n                float* tbl = (float*)((char*)numtbl + ((rphase >> xlobits) & xlomask13));\n                float numer = lininterp(pfrac, tbl[0], tbl[1]);\n                float n1 = (numer * denom - 1.f) * prevscale;\n\n                rphase = phase * N2;\n                pfrac = PhaseFrac(rphase);\n                tbl = (float*)((char*)numtbl + ((rphase >> xlobits) & xlomask13));\n                numer = lininterp(pfrac, tbl[0], tbl[1]);\n                float n2 = (numer * denom - 1.f) * scale;\n\n                ZXP(out) = lininterp(xfade, n1, n2);\n            } phase += freq;\n            xfade += xfade_slope;);\n    } else {\n        // hmm, if freq is above sr/4 then revert to sine table osc w/ no interpolation ?\n        // why bother, it isn't a common choice for a fundamental.\n        LOOP1(\n            inNumSamples, float* tbl = (float*)((char*)dentbl + ((phase >> xlobits) & xlomask13)); float t0 = tbl[0];\n            float t1 = tbl[1]; if (t0 == kBadValue || t1 == kBadValue) {\n                tbl = (float*)((char*)numtbl + ((phase >> xlobits) & xlomask13));\n                t0 = tbl[0];\n                t1 = tbl[1];\n                float pfrac = PhaseFrac(phase);\n                float denom = t0 + (t1 - t0) * pfrac;\n                if (std::abs(denom) < 0.0005f) {\n                    ZXP(out) = 1.f;\n                } else {\n                    int32 rphase = phase * N2;\n                    pfrac = PhaseFrac(rphase);\n                    tbl = (float*)((char*)numtbl + ((rphase >> xlobits) & xlomask13));\n                    float numer = lininterp(pfrac, tbl[0], tbl[1]);\n                    ZXP(out) = (numer / denom - 1.f) * scale;\n                }\n            } else {\n                float pfrac = PhaseFrac(phase);\n                float denom = t0 + (t1 - t0) * pfrac;\n                int32 rphase = phase * N2;\n                pfrac = PhaseFrac(rphase);\n                tbl = (float*)((char*)numtbl + ((rphase >> xlobits) & xlomask13));\n                float numer = lininterp(pfrac, tbl[0], tbl[1]);\n                ZXP(out) = (numer * denom - 1.f) * scale;\n            } phase += freq;);\n    }\n\n    unit->m_phase = phase;\n    unit->m_freqin = freqin;\n    unit->m_numharm = numharm;\n}"
+				}
+
+			}
+ ],
+		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"order" : 2,
+					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-22", 1 ],
+					"order" : 0,
+					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-24", 1 ],
+					"midpoints" : [ 105.055560111999512, 394.777797222137451, 383.333350658416748, 394.777797222137451 ],
+					"order" : 1,
+					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-29", 0 ],
+					"order" : 3,
+					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"source" : [ "obj-12", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-14", 0 ],
+					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-15", 0 ],
+					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"order" : 2,
+					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-19", 1 ],
+					"midpoints" : [ 228.388899326324463, 394.777797222137451, 542.388912200927734, 394.777797222137451 ],
+					"order" : 0,
+					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-24", 0 ],
+					"order" : 1,
+					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-27", 0 ],
+					"source" : [ "obj-19", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
+					"source" : [ "obj-21", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-26", 0 ],
+					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-20", 0 ],
+					"source" : [ "obj-23", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-23", 1 ],
+					"order" : 1,
+					"source" : [ "obj-24", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-26", 1 ],
+					"order" : 0,
+					"source" : [ "obj-24", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-19", 0 ],
+					"source" : [ "obj-26", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-23", 0 ],
+					"source" : [ "obj-27", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-21", 0 ],
+					"order" : 0,
+					"source" : [ "obj-28", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"order" : 1,
+					"source" : [ "obj-28", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-10", 0 ],
+					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+ ]
+	}
+
+}

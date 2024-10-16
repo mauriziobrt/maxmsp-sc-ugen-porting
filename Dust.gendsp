@@ -1,0 +1,187 @@
+{
+	"patcher" : 	{
+		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 8,
+			"minor" : 6,
+			"revision" : 4,
+			"architecture" : "x64",
+			"modernui" : 1
+		}
+,
+		"classnamespace" : "dsp.gen",
+		"rect" : [ 134.0, 159.0, 600.0, 528.0 ],
+		"bglocked" : 0,
+		"openinpresentation" : 0,
+		"default_fontsize" : 12.0,
+		"default_fontface" : 0,
+		"default_fontname" : "Arial",
+		"gridonopen" : 1,
+		"gridsize" : [ 15.0, 15.0 ],
+		"gridsnaponopen" : 1,
+		"objectsnaponopen" : 1,
+		"statusbarvisible" : 2,
+		"toolbarvisible" : 1,
+		"lefttoolbarpinned" : 0,
+		"toptoolbarpinned" : 0,
+		"righttoolbarpinned" : 0,
+		"bottomtoolbarpinned" : 0,
+		"toolbars_unpinned_last_save" : 0,
+		"tallnewobj" : 0,
+		"boxanimatetime" : 200,
+		"enablehscroll" : 1,
+		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
+		"description" : "Generates random impulses from 0 to +1.",
+		"digest" : "",
+		"tags" : "",
+		"style" : "",
+		"subpatcher_template" : "",
+		"assistshowspatchername" : 0,
+		"title" : "Dust (from SuperCollider)",
+		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-1",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 117.0, 128.0, 28.0, 22.0 ],
+					"text" : "in 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-5",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 690.0, 665.0, 35.0, 22.0 ],
+					"text" : "out 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-13",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 954.0, 143.0, 283.0, 20.0 ],
+					"text" : "inRate->mSampleDur = 1. / inRate->mSampleRate;"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-10",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 108.0, 665.0, 35.0, 22.0 ],
+					"text" : "out 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-3",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 925.0, 37.0, 150.0, 33.0 ],
+					"text" : "mSampleDur = seconds per sample"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"code" : "// Dust UGen implementation in gen~\n\r\n// Input\nm_density = 0.;\r\nm_scale = 0.;\r\nm_thresh = 0.;\r\n\r\ndensity = in1;\r\nthresh = 0.;\r\nscale = 0.;\r\nmSampleDur = 1. / samplerate;\r\n\r\nif (density != m_density) {\r\n\tout2 = 1;\r\n\tthresh = density * mSampleDur;\r\n\tscale = thresh > 0. ? 1./thresh : 0.;\r\n\t}\r\nelse {\r\n\tout2 = 0;\r\n\tthresh = m_thresh;\r\n\tscale = m_scale;\r\n\t}\r\n\r\nz = noise();\r\nz = abs(z);\r\n//out1 = thresh;\r\n\r\n//out1 = abs(z);\r\n\r\nif (z < thresh) {\r\n\tout1 = z * scale;\r\n\t}\r\nelse {\r\n\tout1 = 0.;\r\n\t}\r\n\r\n\r\n\r\n",
+					"fontface" : 0,
+					"fontname" : "<Monospaced>",
+					"fontsize" : 12.0,
+					"id" : "obj-30",
+					"maxclass" : "codebox",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 108.0, 229.0, 601.0, 386.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-29",
+					"linecount" : 10,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 742.0, 132.0, 208.0, 141.0 ],
+					"text" : "Constructor:\n\nvoid Dust_Ctor(Dust* unit) {\n    SETCALC(Dust_next);\n\n    unit->m_density = 0.f;\n    unit->m_scale = 0.f;\n    unit->m_thresh = 0.f;\n    Dust_next(unit, 1);\n}"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-27",
+					"linecount" : 21,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 736.0, 281.0, 591.0, 288.0 ],
+					"text" : "void Dust_next(Dust* unit, int inNumSamples) {\n    float* out = ZOUT(0);\n    float density = ZIN0(0);\n    float thresh, scale;\n\n    RGET\n\n        if (density != unit->m_density) {\n        thresh = unit->m_thresh = density * unit->mRate->mSampleDur;\n        scale = unit->m_scale = thresh > 0.f ? 1.f / thresh : 0.f;\n        unit->m_density = density;\n    }\n    else {\n        thresh = unit->m_thresh;\n        scale = unit->m_scale;\n    }\n\n    LOOP1(inNumSamples, float z = frand(s1, s2, s3); if (z < thresh) ZXP(out) = z * scale; else ZXP(out) = 0.f;);\n\n    RPUT\n}"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-8",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 742.0, 107.0, 271.0, 20.0 ],
+					"text" : "density: Average number of impulses per second."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-6",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 742.0, 37.0, 150.0, 33.0 ],
+					"text" : "Generates random impulses from 0 to +1."
+				}
+
+			}
+ ],
+		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-30", 0 ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-10", 0 ],
+					"source" : [ "obj-30", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"source" : [ "obj-30", 1 ]
+				}
+
+			}
+ ],
+		"autosave" : 0
+	}
+
+}

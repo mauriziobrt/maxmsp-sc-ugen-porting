@@ -1,0 +1,188 @@
+{
+	"patcher" : 	{
+		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 8,
+			"minor" : 6,
+			"revision" : 4,
+			"architecture" : "x64",
+			"modernui" : 1
+		}
+,
+		"classnamespace" : "dsp.gen",
+		"rect" : [ 134.0, 159.0, 600.0, 502.0 ],
+		"bglocked" : 0,
+		"openinpresentation" : 0,
+		"default_fontsize" : 12.0,
+		"default_fontface" : 0,
+		"default_fontname" : "Arial",
+		"gridonopen" : 1,
+		"gridsize" : [ 15.0, 15.0 ],
+		"gridsnaponopen" : 1,
+		"objectsnaponopen" : 1,
+		"statusbarvisible" : 2,
+		"toolbarvisible" : 1,
+		"lefttoolbarpinned" : 0,
+		"toptoolbarpinned" : 0,
+		"righttoolbarpinned" : 0,
+		"bottomtoolbarpinned" : 0,
+		"toolbars_unpinned_last_save" : 0,
+		"tallnewobj" : 0,
+		"boxanimatetime" : 200,
+		"enablehscroll" : 1,
+		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
+		"description" : "",
+		"digest" : "",
+		"tags" : "",
+		"style" : "",
+		"subpatcher_template" : "",
+		"assistshowspatchername" : 0,
+		"boxes" : [ 			{
+				"box" : 				{
+					"code" : "// Initialize state variables\nHistory y1(0);\nHistory b1(0);\r\nHistory target_b1(0);\nHistory slope(0);\nHistory counter(0);\r\n\r\nlag = in2;\n\n// Detect changes in lag parameter\nlag_changed = change(lag);\n\n// Calculate target b1\ntarget_b1 = lag == 0 ? 0 : exp(log(0.001) / (lag * samplerate));\n\n// Calculate slope when lag changes\nif (lag_changed) {\n    slope = (target_b1 - b1) / 64;  // Transition over 64 samples\n    counter = 0;\n}\n\n// Update b1 using slope\nif (counter < 64) {\n    b1 += slope;\n    counter += 1;\n} else {\n    b1 = target_b1;\n}\n\n// Input signal\nx = in1;\n\n// Lag algorithm\ny = x + b1 * (y1 - x);\n\n// Update history\ny1 = y;\n\n// Output\nout1 = y;",
+					"fontface" : 0,
+					"fontname" : "<Monospaced>",
+					"fontsize" : 12.0,
+					"id" : "obj-11",
+					"maxclass" : "codebox",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 271.857116460800171, 137.0, 427.0, 294.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-23",
+					"linecount" : 5,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 286.605017423629761, 501.680642366409302, 151.0, 74.0 ],
+					"text" : "same as onepole except that instead of supplying the coefficient directly, it is calculated from a 60 dB lag time. "
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-14",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 286.605017423629761, 478.151232004165649, 255.0, 20.0 ],
+					"text" : "Lag.ar(in: 0.0, lagTime: 0.1, mul: 1.0, add: 0.0)"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-22",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 650.0, 18.0, 25.0, 20.0 ],
+					"text" : "lag"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"annotation" : "",
+					"hint" : "Lag time\n",
+					"id" : "obj-20",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 680.0, 18.0, 28.0, 22.0 ],
+					"text" : "in 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-13",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 64.705878496170044, 63.865542411804199, 39.0, 20.0 ],
+					"text" : "m_y1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-10",
+					"linecount" : 8,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 127.0, 600.0, 536.0, 114.0 ],
+					"text" : "LOOP1:\n{\n    int xxn = (length);   // Declare an integer 'xxn' and initialize it with the value of 'length'.\n    assert(length);       // Check that 'length' is not zero (causes program termination if length is zero).\n    do {                  // Start of a 'do-while' loop.\n        stmt;             // Execute the provided statement.\n    } while (--xxn);      // Decrement 'xxn', and if it's not zero, repeat the loop.\n}"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-6",
+					"linecount" : 52,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 748.0, 13.0, 563.0, 717.0 ],
+					"text" : "void Lag_Ctor(Lag* unit) {\n    if (BUFLENGTH == 1)\n        SETCALC(Lag_next_1);\n    else\n        SETCALC(Lag_next);\n\n    unit->m_lag = uninitializedControl;\n    unit->m_b1 = 0.f;\n    unit->m_y1 = ZIN0(0);\n    Lag_next(unit, 1);\n}\n\n\nvoid Lag_next(Lag* unit, int inNumSamples) {\n    float* out = ZOUT(0);\n    float* in = ZIN(0);\n    float lag = ZIN0(1);\n\n    double y1 = unit->m_y1;\n    double b1 = unit->m_b1;\n\n    if (lag == unit->m_lag) {\n        LOOP1(inNumSamples, double y0 = ZXP(in); ZXP(out) = y1 = y0 + b1 * (y1 - y0););\n    } else {\n        unit->m_b1 = lag == 0.f ? 0.f : exp(log001 / (lag * unit->mRate->mSampleRate));\n        double b1_slope = CALCSLOPE(unit->m_b1, b1);\n        unit->m_lag = lag;\n        LOOP1(inNumSamples, b1 += b1_slope; double y0 = ZXP(in); ZXP(out) = y1 = y0 + b1 * (y1 - y0););\n    }\n    unit->m_y1 = zapgremlins(y1);\n}\n\nvoid Lag_next_1(Lag* unit, int inNumSamples) {\n    float* out = OUT(0);\n    float* in = IN(0);\n    float lag = IN0(1);\n\n    double y1 = unit->m_y1;\n    double b1 = unit->m_b1;\n\n    if (lag == unit->m_lag) {\n        double y0 = *in;\n        *out = y1 = y0 + b1 * (y1 - y0);\n    } else {\n        unit->m_b1 = b1 = lag == 0.f ? 0.f : exp(log001 / (lag * unit->mRate->mSampleRate));\n        unit->m_lag = lag;\n        double y0 = *in;\n        *out = y1 = y0 + b1 * (y1 - y0);\n    }\n    unit->m_y1 = zapgremlins(y1);\n}\n\n"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"hint" : "Input",
+					"id" : "obj-1",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 131.932765245437622, 63.865542411804199, 28.0, 22.0 ],
+					"text" : "in 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-4",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 124.932765245437622, 506.0, 35.0, 22.0 ],
+					"text" : "out 1"
+				}
+
+			}
+ ],
+		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 1 ],
+					"source" : [ "obj-20", 0 ]
+				}
+
+			}
+ ]
+	}
+
+}

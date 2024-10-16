@@ -1,0 +1,188 @@
+{
+	"patcher" : 	{
+		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 8,
+			"minor" : 6,
+			"revision" : 4,
+			"architecture" : "x64",
+			"modernui" : 1
+		}
+,
+		"classnamespace" : "dsp.gen",
+		"rect" : [ 134.0, 159.0, 600.0, 476.0 ],
+		"bglocked" : 0,
+		"openinpresentation" : 0,
+		"default_fontsize" : 12.0,
+		"default_fontface" : 0,
+		"default_fontname" : "Arial",
+		"gridonopen" : 1,
+		"gridsize" : [ 15.0, 15.0 ],
+		"gridsnaponopen" : 1,
+		"objectsnaponopen" : 1,
+		"statusbarvisible" : 2,
+		"toolbarvisible" : 1,
+		"lefttoolbarpinned" : 0,
+		"toptoolbarpinned" : 0,
+		"righttoolbarpinned" : 0,
+		"bottomtoolbarpinned" : 0,
+		"toolbars_unpinned_last_save" : 0,
+		"tallnewobj" : 0,
+		"boxanimatetime" : 200,
+		"enablehscroll" : 1,
+		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
+		"description" : "",
+		"digest" : "",
+		"tags" : "",
+		"style" : "default",
+		"subpatcher_template" : "",
+		"assistshowspatchername" : 0,
+		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-1",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 283.0, 63.0, 28.0, 22.0 ],
+					"text" : "in 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"code" : "// LFNoise2 implementation in Max/MSP Gen\n\r\n\n// Helper functions\nfrand2() {\n    return (noise());\n}\n\r\n\n// State variables\nHistory level(0.);\nHistory slope(0.);\nHistory curve(0.);\nHistory counter(0);\nHistory next_value(0.);\nHistory next_midpt(0.);\nfreq = 1;\n// Parameters\n//Param freq(1);\nfreq = in1;\n// Main process function\n\nif (counter <= 0) {\r\n\tvalue = next_value;\r\n\tnext_value = frand2();\n    level = next_midpt;\n    next_midpt = (next_value + value) * 0.5;\n    counter = max(2, samplerate / max(freq, 0.001));\n    fseglen = counter;\n    curve = 2. * (next_midpt - level - fseglen * slope) / (fseglen * fseglen + fseglen);\n}\n    \nout1 = level;\nslope += curve;\nlevel += slope;\ncounter -= 1;\n\n",
+					"fontface" : 0,
+					"fontname" : "<Monospaced>",
+					"fontsize" : 12.0,
+					"id" : "obj-11",
+					"maxclass" : "codebox",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 300.999998956918716, 158.400002360343933, 520.80000776052475, 476.800007104873657 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-8",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 251.200003743171692, 112.800001680850983, 150.0, 33.0 ],
+					"text" : "frand: Generate a float from -1.0 to +0.999..."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-3",
+					"linecount" : 45,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 853.600012719631195, 63.0, 510.0, 623.0 ],
+					"text" : "void LFNoise2_Ctor(LFNoise2* unit) {\n    SETCALC(LFNoise2_next);\n\n    unit->mCounter = 0;\n    unit->mSlope = 0.f;\n    unit->mLevel = 0.f;\n    unit->m_nextvalue = unit->mParent->mRGen->frand2();\n    unit->m_nextmidpt = unit->m_nextvalue * .5f;\n\n    LFNoise2_next(unit, 1);\n}\nvoid LFNoise2_next(LFNoise2* unit, int inNumSamples) {\n    float* out = ZOUT(0);\n    float freq = ZIN0(0);\n    float level = unit->mLevel;\n    float slope = unit->mSlope;\n    float curve = unit->mCurve;\n    int counter = unit->mCounter;\n    RGET\n\n        int remain = inNumSamples;\n    do {\n        if (counter <= 0) {\n            float value = unit->m_nextvalue;\n            unit->m_nextvalue = frand2(s1, s2, s3);\n            level = unit->m_nextmidpt;\n            unit->m_nextmidpt = (unit->m_nextvalue + value) * .5;\n\n            counter = (int32)(unit->mRate->mSampleRate / sc_max(freq, .001f));\n            counter = sc_max(2, counter);\n            float fseglen = (float)counter;\n            curve = 2.f * (unit->m_nextmidpt - level - fseglen * slope) / (fseglen * fseglen + fseglen);\n        }\n        int nsmps = sc_min(remain, counter);\n        remain -= nsmps;\n        counter -= nsmps;\n        LOOP(nsmps, ZXP(out) = level; slope += curve; level += slope;);\n    } while (remain);\n    unit->mLevel = level;\n    unit->mSlope = slope;\n    unit->mCurve = curve;\n    unit->mCounter = counter;\n    RPUT\n}\n\n"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-6",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 61.60000091791153, 8.00000011920929, 742.0, 47.0 ],
+					"text" : "Generates quadratically interpolated random values at a rate given by the nearest integer division of the sample rate by the freq argument.\n\nLFNoise2.ar(freq: 500.0, mul: 1.0, add: 0.0)"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-4",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 23.20000034570694, 658.40000981092453, 35.0, 22.0 ],
+					"text" : "out 1"
+				}
+
+			}
+ ],
+		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+ ],
+		"styles" : [ 			{
+				"name" : "rnbodefault",
+				"default" : 				{
+					"accentcolor" : [ 0.343034118413925, 0.506230533123016, 0.86220508813858, 1.0 ],
+					"bgcolor" : [ 0.031372549019608, 0.125490196078431, 0.211764705882353, 1.0 ],
+					"bgfillcolor" : 					{
+						"angle" : 270.0,
+						"autogradient" : 0.0,
+						"color" : [ 0.031372549019608, 0.125490196078431, 0.211764705882353, 1.0 ],
+						"color1" : [ 0.031372549019608, 0.125490196078431, 0.211764705882353, 1.0 ],
+						"color2" : [ 0.263682, 0.004541, 0.038797, 1.0 ],
+						"proportion" : 0.39,
+						"type" : "color"
+					}
+,
+					"color" : [ 0.929412, 0.929412, 0.352941, 1.0 ],
+					"elementcolor" : [ 0.357540726661682, 0.515565991401672, 0.861786782741547, 1.0 ],
+					"fontname" : [ "Lato" ],
+					"fontsize" : [ 12.0 ],
+					"stripecolor" : [ 0.258338063955307, 0.352425158023834, 0.511919498443604, 1.0 ],
+					"textcolor_inverse" : [ 0.968627, 0.968627, 0.968627, 1 ]
+				}
+,
+				"parentstyle" : "",
+				"multi" : 0
+			}
+, 			{
+				"name" : "rnbomonokai",
+				"default" : 				{
+					"accentcolor" : [ 0.501960784313725, 0.501960784313725, 0.501960784313725, 1.0 ],
+					"bgcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"bgfillcolor" : 					{
+						"angle" : 270.0,
+						"autogradient" : 0.0,
+						"color" : [ 0.0, 0.0, 0.0, 1.0 ],
+						"color1" : [ 0.031372549019608, 0.125490196078431, 0.211764705882353, 1.0 ],
+						"color2" : [ 0.263682, 0.004541, 0.038797, 1.0 ],
+						"proportion" : 0.39,
+						"type" : "color"
+					}
+,
+					"clearcolor" : [ 0.976470588235294, 0.96078431372549, 0.917647058823529, 1.0 ],
+					"color" : [ 0.611764705882353, 0.125490196078431, 0.776470588235294, 1.0 ],
+					"editing_bgcolor" : [ 0.976470588235294, 0.96078431372549, 0.917647058823529, 1.0 ],
+					"elementcolor" : [ 0.749019607843137, 0.83921568627451, 1.0, 1.0 ],
+					"fontname" : [ "Lato" ],
+					"locked_bgcolor" : [ 0.976470588235294, 0.96078431372549, 0.917647058823529, 1.0 ],
+					"stripecolor" : [ 0.796078431372549, 0.207843137254902, 1.0, 1.0 ],
+					"textcolor" : [ 0.129412, 0.129412, 0.129412, 1.0 ]
+				}
+,
+				"parentstyle" : "",
+				"multi" : 0
+			}
+ ]
+	}
+
+}
