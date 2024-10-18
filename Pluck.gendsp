@@ -1,0 +1,283 @@
+{
+	"patcher" : 	{
+		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 8,
+			"minor" : 6,
+			"revision" : 4,
+			"architecture" : "x64",
+			"modernui" : 1
+		}
+,
+		"classnamespace" : "dsp.gen",
+		"rect" : [ 72.0, 87.0, 1814.0, 884.0 ],
+		"bglocked" : 0,
+		"openinpresentation" : 0,
+		"default_fontsize" : 12.0,
+		"default_fontface" : 0,
+		"default_fontname" : "Arial",
+		"gridonopen" : 1,
+		"gridsize" : [ 15.0, 15.0 ],
+		"gridsnaponopen" : 1,
+		"objectsnaponopen" : 1,
+		"statusbarvisible" : 2,
+		"toolbarvisible" : 1,
+		"lefttoolbarpinned" : 0,
+		"toptoolbarpinned" : 0,
+		"righttoolbarpinned" : 0,
+		"bottomtoolbarpinned" : 0,
+		"toolbars_unpinned_last_save" : 0,
+		"tallnewobj" : 0,
+		"boxanimatetime" : 200,
+		"enablehscroll" : 1,
+		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
+		"description" : "",
+		"digest" : "",
+		"tags" : "",
+		"style" : "darktheme",
+		"subpatcher_template" : "",
+		"assistshowspatchername" : 0,
+		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-25",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 1043.0, 807.0, 35.0, 22.0 ],
+					"text" : "out 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-21",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 318.0, 155.0, 421.0, 33.0 ],
+					"text" : "τ_d (delay time) determines the fundamental frequency of the simulated string\nτ_decay (decay time) controls how quickly the string's vibration dies out"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-19",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 46.0, 807.0, 35.0, 22.0 ],
+					"text" : "out 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"code" : "// Cubic interpolation function\ncubic_interp(frac, x0, x1, x2, x3) {\n    a = x2 - x0;\n    b = 2.0 * x0 - 5.0 * x1 + 4.0 * x2 - x3;\n    c = 3.0 * (x1 - x2) + x3 - x0;\n    d = frac * (b + frac * c);\n    return x1 + 0.5 * (a + d);\n}\n\n// Parameters\n\nParam maxdelay(1000); // maximum delay in ms\n\n// History objects\nHistory x0(0);\nHistory x1(0);\nHistory x2(0);\nHistory x3(0);\nHistory lastsamp(0);\nHistory phase(0);\n\n// Delay buffer\nData delayline(samplerate);\n\n// Update history chain\nx3 = x2;\nx2 = x1;\nx1 = x0;\nx0 = in1;\n\n// Input parameters\ntdecay = in3;  // decay time\ntdelay = clip(in4, 0, maxdelay/1000);  // delay time in seconds (with safety clip)\ncoef = clip(in5, -1, 1);  // coefficient (clipped to valid range)\n\n// Calculate delay in samples\ndsamps = tdelay * samplerate;\ndelay_int = floor(dsamps);\nfrac = dsamps - delay_int;\n\n// Calculate read/write positions\nwritepos = phase;\nreadpos = wrap(writepos - delay_int, 0, samplerate);\n\n// Calculate feedback coefficient\n// Fixed feedback coefficient calculation\nfdbk_coeff = sign(tdecay) * exp((log(0.001) * tdelay) / abs(tdecay));\n\n// Read from delay line with proper indexing\nd0 = peek(delayline, wrap(readpos + 1, 0, samplerate));\nd1 = peek(delayline, readpos);\nd2 = peek(delayline, wrap(readpos - 1, 0, samplerate));\nd3 = peek(delayline, wrap(readpos - 2, 0, samplerate));\n\n// Perform cubic interpolation\nvalue = cubic_interp(frac, d0, d1, d2, d3);\n\n// One-pole filter\nonepole = ((1. - abs(coef)) * value) + (coef * lastsamp);\n\n// Calculate feedback and write to delay line\ndelaywrite = in1 + fdbk_coeff * onepole;\npoke(delayline, delaywrite, writepos);\n\n// Update phase and output\nphase = wrap(phase + 1, 0, samplerate);\nlastsamp = onepole;\n\nout1 = onepole;\nout2 = value;",
+					"fontface" : 0,
+					"fontname" : "<Monospaced>",
+					"fontsize" : 12.0,
+					"id" : "obj-9",
+					"maxclass" : "codebox",
+					"numinlets" : 5,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 46.0, 194.0, 1016.0, 597.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-15",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 388.0, 15.0, 31.0, 20.0 ],
+					"text" : "coef"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-14",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 269.0, 15.0, 63.0, 20.0 ],
+					"text" : "decaytime"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-13",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 161.0, 15.0, 60.0, 20.0 ],
+					"text" : "delaytime"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-12",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 89.0, 15.0, 25.0, 20.0 ],
+					"text" : "trig"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-11",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 29.0, 15.0, 19.0, 20.0 ],
+					"text" : "in"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-7",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 421.0, 14.0, 28.0, 22.0 ],
+					"text" : "in 5"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-6",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 331.0, 14.0, 28.0, 22.0 ],
+					"text" : "in 4"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-5",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 224.0, 14.0, 28.0, 22.0 ],
+					"text" : "in 3"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-1",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 50.0, 14.0, 28.0, 22.0 ],
+					"text" : "in 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-2",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 116.0, 14.0, 28.0, 22.0 ],
+					"text" : "in 2"
+				}
+
+			}
+ ],
+		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 1 ],
+					"source" : [ "obj-2", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 3 ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 2 ],
+					"source" : [ "obj-6", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 4 ],
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-19", 0 ],
+					"source" : [ "obj-9", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-25", 0 ],
+					"source" : [ "obj-9", 1 ]
+				}
+
+			}
+ ],
+		"styles" : [ 			{
+				"name" : "darktheme",
+				"default" : 				{
+					"bgcolor" : [ 0.258823529411765, 0.258823529411765, 0.258823529411765, 1.0 ],
+					"bgfillcolor" : 					{
+						"angle" : 270.0,
+						"autogradient" : 0,
+						"color" : [ 0.290196, 0.309804, 0.301961, 1.0 ],
+						"color1" : [ 0.189978, 0.702782, 0.709092, 1.0 ],
+						"color2" : [ 0.290196, 0.309804, 0.301961, 1.0 ],
+						"proportion" : 0.39,
+						"type" : "gradient"
+					}
+,
+					"color" : [ 0.17212, 0.747669, 0.766602, 1.0 ],
+					"editing_bgcolor" : [ 0.146890044212341, 0.150885283946991, 0.147243574261665, 1.0 ],
+					"elementcolor" : [ 0.886274509803922, 0.780392156862745, 0.76078431372549, 1.0 ],
+					"locked_bgcolor" : [ 0.146890044212341, 0.150885283946991, 0.147243574261665, 1.0 ],
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+				}
+,
+				"parentstyle" : "",
+				"multi" : 0
+			}
+ ]
+	}
+
+}
